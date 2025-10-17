@@ -28,6 +28,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=QuynhHuongVuPXL-TWnqe@github
-            -Dsonar.organization=QuynhHuongVuPXL
+            -Dsonar.projectKey=QuynhHuongVuPXL_testsonarqube
+            -Dsonar.organization=quynhhuongvupxl
             -Dsonar.host.url=https://sonarcloud.io
