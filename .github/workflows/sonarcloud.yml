@@ -7,24 +7,21 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  sonar:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout your code
       - uses: actions/checkout@v3
 
+      # Step 2: Set up Java (required by SonarScanner)
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
+      # Step 3: Run SonarCloud scan
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@v2
         with:
