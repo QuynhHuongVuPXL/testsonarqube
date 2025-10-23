@@ -1,33 +1,31 @@
-name: SonarCloud
+name: SonarQube Scan
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   sonar:
-    runs-on: ubuntu-latest
-
+    runs-on: self-hosted  # The company laptop runner
     steps:
-      # Step 1: Checkout your code
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # Step 2: Set up Java (required by SonarScanner)
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          distribution: temurin
-          java-version: 17
+          node-version: 18
 
-      # Step 3: Run SonarCloud scan
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@v2
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run SonarQube scan
+        uses: sonarsource/sonarqube-scan-action@v3
         with:
-          args: >
-            -Dsonar.projectKey=QuynhHuongVuPXL_testsonarqube
-            -Dsonar.organization=quynhhuongvupxl
-            -Dsonar.host.url=https://sonarcloud.io
+          host-url: http://localhost:9000
+          token: ${{ secrets.SONAR_TOKEN }}
