@@ -1,0 +1,12 @@
+{
+  "name": "testsonarqube",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "sonar": "sonar-scanner"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "sonarqube-scanner": "^3.1.0"
+  }
+}
